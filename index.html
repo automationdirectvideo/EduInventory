@@ -72,6 +72,12 @@
               height: {min: 480},
               aspectRatio: {min: 1, max: 100},
               facingMode: "environment" // or "user" for the front camera
+            },
+            area: {
+              bottom: "30%",
+              left: "10%",
+              right: "10%",
+              top: "30%"
             }
           },
           locator: {
@@ -120,8 +126,8 @@
           console.log(result);
           playBeep();
           var node = document.createElement("P");
-          node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString() + " by live scan"));
-          document.getElementById("log").appendChild(node);
+          node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString()));
+          document.getElementById("log").prepend(node);
           Quagga.stop();
         }
       });
