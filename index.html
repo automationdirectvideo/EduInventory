@@ -14,6 +14,7 @@
     <script src="js/quagga.min.js"></script>
   </head>
   <body>
+    <audio id="beep-audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
     <div class="main">
       <div class="container">
         <div class="text-center">
@@ -117,8 +118,9 @@
       Quagga.onDetected(function(result) {
         if (result.codeResult.code){
           console.log(result);
+          playBeep();
           var node = document.createElement("P");
-          node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString() + " by upload"));
+          node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString() + " by live scan"));
           document.getElementById("log").appendChild(node);
           Quagga.stop();
         }
@@ -137,13 +139,13 @@
         console.log(e);
         if (e.target.files && e.target.files.length) {
           Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {
-            console.log(result);
-            var node = document.createElement("P");
-            node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString() + " by upload"));
-            document.getElementById("log").appendChild(node);
           });
         }
       });
     });
+    function playBeep() {
+      var sound = document.getElementById("beep-audio");
+      sound.play();
+    }
   </script>
 </html>
