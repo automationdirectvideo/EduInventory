@@ -147,7 +147,9 @@
         if (result.codeResult.code){
           console.log(result);
           let code = result.codeResult.code;
-          if (!/^[0-9]+$/.test(code)) {
+          let regAllDigits = /^[0-9]+$/;
+          let regNoSpecialChar = /^[a-zA-Z0-9+\-]+$/;
+          if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
             playBeep();
             var node = document.createElement("P");
             node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
