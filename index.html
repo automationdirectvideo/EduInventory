@@ -15,6 +15,7 @@
   </head>
   <body>
     <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+    <div id="interactive" class="viewport"></div>
     <div class="main">
       <div class="container">
         <div class="text-center">
@@ -27,7 +28,7 @@
           <button class="btn btn-secondary btn-lg"><i class="fa fa-map-marker-alt mr-2"></i>Map</button>
           <br>
           <br>
-          <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#livestream_scanner"><i class="fa fa-camera mr-2"></i>Scan with Camera</button>
+          <button class="btn btn-primary btn-lg" onclick="loadLiveQuagga()"><i class="fa fa-camera mr-2"></i>Scan with Camera</button>
         </div>
         <hr>
         <h4 style="text-decoration:underline;">Scanning Log</h4>
@@ -43,7 +44,7 @@
                   </button>
               </div>
               <div class="modal-body" style="position: static">
-                <div id="interactive" class="viewport"></div>
+                <div id="upload-viewport" class="viewport"></div>
                 <div class="error"></div>
               </div>
               <div class="modal-footer">
@@ -60,123 +61,146 @@
     </div>
   </body>
   <style>
-    #interactive.viewport {position: relative; width: 100%; height: auto; overflow: hidden; text-align: center;}
-    #interactive.viewport > canvas, #interactive.viewport > video {max-width: 100%;width: 100%;}
-    canvas.drawing, canvas.drawingBuffer, canvas.imgBuffer {position: absolute; left: 0; top: 0;}
+    #interactive.viewport{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      text-align: center;
+      display: none
+    }
+    #upload-viewport {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      text-align: center;
+    }
+    #interactive.viewport > canvas, #interactive.viewport > video,
+    #upload-viewport > canvas, #upload-viewport > video {
+      max-width: 100%;
+      width: 100%;
+    }
+    canvas.drawing, canvas.drawingBuffer, canvas.imgBuffer {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   </style>
   <script>
-    $(function() {
-      // Create the QuaggaJS config object for the live stream
-      var liveStreamConfig = {
+    // Create the QuaggaJS config object for the live stream
+    var liveStreamConfig = {
+        inputStream: {
+          type : "LiveStream",
+          constraints: {
+            facingMode: "environment" // or "user" for the front camera
+          },
+          area: {
+            bottom: "40%",
+            left: "5%",
+            right: "5%",
+            top: "40%"
+          },
+          size: 1600
+        },
+        locator: {
+          patchSize: "x-large",
+          halfSample: true
+        },
+        numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
+        decoder: {
+          readers: [
+            'code_128_reader',
+            'code_39_reader'
+          ]
+        },
+        locate: false
+      };
+    // The fallback to the file API requires a different inputStream option. 
+    // The rest is the same 
+    var fileConfig = $.extend(
+        {}, 
+        liveStreamConfig,
+        {
           inputStream: {
-            type : "LiveStream",
-            constraints: {
-              facingMode: "environment" // or "user" for the front camera
-            },
-            area: {
-              bottom: "40%",
-              left: "5%",
-              right: "5%",
-              top: "40%"
-            },
-            size: 1600
-          },
-          locator: {
-            patchSize: "x-large",
-            halfSample: true
-          },
-          numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
-          decoder: {
-            readers: [
-              'code_128_reader',
-              'code_39_reader'
-            ]
-          },
-          locate: false
-        };
-      // The fallback to the file API requires a different inputStream option. 
-      // The rest is the same 
-      var fileConfig = $.extend(
-          {}, 
-          liveStreamConfig,
-          {
-            inputStream: {
-              size: 800
-            }
+            size: 800,
+            target: "#upload-viewport"
           }
-        );
-      // Start the live stream scanner when the modal opens
-      $('#livestream_scanner').on('shown.bs.modal', function (e) {
-        Quagga.init(
-          liveStreamConfig, 
-          function(err) {
-            if (err) {
-              $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> '+err.name+'</strong>: '+err.message+'</div>');
-              Quagga.stop();
-              return;
-            }
-            Quagga.start();
+        }
+      );
+
+      Quagga.onProcessed(function(result) {
+        var drawingCtx = Quagga.canvas.ctx.overlay, drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (result) {
+          if (result.boxes) {
+            drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+            result.boxes.filter(function (box) {
+              return box !== result.box;
+            }).forEach(function (box) {
+              Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 5});
+            });
           }
-        );
-        });
-      
-        Quagga.onProcessed(function(result) {
-          var drawingCtx = Quagga.canvas.ctx.overlay, drawingCanvas = Quagga.canvas.dom.overlay;
 
-          if (result) {
-            if (result.boxes) {
-              drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-              result.boxes.filter(function (box) {
-                return box !== result.box;
-              }).forEach(function (box) {
-                Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 5});
-              });
-            }
-
-            if (result.codeResult && result.codeResult.code) {
-              Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-            }
-          }
-        });
-
-      // Once a barcode had been read successfully, stop quagga and 
-      // close the modal after a second to let the user notice where 
-      // the barcode had actually been found.
-      Quagga.onDetected(function(result) {
-        if (result.codeResult.code){
-          console.log(result);
-          let code = result.codeResult.code;
-          let regAllDigits = /^[0-9]+$/;
-          let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
-          if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
-            code = /^([^+])+/.exec(code)[0];
-            playBeep();
-            var node = document.createElement("P");
-            node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
-            document.getElementById("log").prepend(node);
-            $('#livestream_scanner').modal("hide");
-            Quagga.stop();
+          if (result.codeResult && result.codeResult.code) {
+            Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
           }
         }
       });
-        
-      // Stop quagga in any case, when the modal is closed
-        $('#livestream_scanner').on('hide.bs.modal', function(){
-          if (Quagga){
-            Quagga.stop();	
-          }
-        });
-      
-      // Call Quagga.decodeSingle() for every file selected in the 
-      // file input
-      $("#livestream_scanner input:file").on("change", function(e) {
-        console.log(e);
-        if (e.target.files && e.target.files.length) {
-          Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {
-          });
+
+    // Once a barcode had been read successfully, stop quagga and 
+    // close the modal after a second to let the user notice where 
+    // the barcode had actually been found.
+    Quagga.onDetected(function(result) {
+      if (result.codeResult.code){
+        console.log(result);
+        let code = result.codeResult.code;
+        let regAllDigits = /^[0-9]+$/;
+        let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
+        if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
+          code = /^([^+])+/.exec(code)[0];
+          playBeep();
+          var node = document.createElement("P");
+          node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
+          document.getElementById("log").prepend(node);
+          $('#livestream_scanner').modal("hide");
+          Quagga.stop();
         }
-      });
+      }
     });
+      
+    // Stop quagga in any case, when the modal is closed
+      $('#livestream_scanner').on('hide.bs.modal', function(){
+        if (Quagga){
+          Quagga.stop();	
+        }
+      });
+    
+    // Call Quagga.decodeSingle() for every file selected in the 
+    // file input
+    $("#livestream_scanner input:file").on("change", function(e) {
+      console.log(e);
+      if (e.target.files && e.target.files.length) {
+        Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {
+        });
+      }
+    });
+
+    function loadLiveQuagga() {
+      Quagga.init(
+        liveStreamConfig, 
+        function(err) {
+          if (err) {
+            $('#livestream_scanner').modal('show');
+            $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> '+err.name+'</strong>: '+err.message+'</div>');
+            Quagga.stop();
+            return;
+          }
+          Quagga.start();
+        }
+      );
+    };
+
     function playBeep() {
       var sound = document.getElementById("beep-audio");
       sound.play();
