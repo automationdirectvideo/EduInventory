@@ -67,7 +67,7 @@
       height: 100%;
       overflow: hidden;
       text-align: center;
-      display: none
+      display: none;
     }
     #upload-viewport {
       position: relative;
@@ -164,6 +164,7 @@
           node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
           document.getElementById("log").prepend(node);
           $('#livestream_scanner').modal("hide");
+          document.getElementById("interactive").style.display = "none";
           Quagga.stop();
         }
       }
@@ -197,6 +198,7 @@
             return;
           }
           Quagga.start();
+          document.getElementById("interactive").style.display = "block";
         }
       );
     };
