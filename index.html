@@ -146,12 +146,15 @@
       Quagga.onDetected(function(result) {
         if (result.codeResult.code){
           console.log(result);
-          playBeep();
-          var node = document.createElement("P");
-          node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString()));
-          document.getElementById("log").prepend(node);
-          $('#livestream_scanner').modal("hide");
-          Quagga.stop();
+          let code = result.codeResult.code;
+          if (!/^[0-9]+$/.test(code)) {
+            playBeep();
+            var node = document.createElement("P");
+            node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
+            document.getElementById("log").prepend(node);
+            $('#livestream_scanner').modal("hide");
+            Quagga.stop();
+          }
         }
       });
         
