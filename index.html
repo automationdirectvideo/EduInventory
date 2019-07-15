@@ -176,5 +176,30 @@
       var sound = document.getElementById("beep-audio");
       sound.play();
     }
+    function getPartDataA(pn) {
+      var call = 'https://www.automationdirect.com/rest/gridCompare/solr/p2-08ad-1';
+      var data;
+      var length;
+      var index = 0;
+      $.ajax({
+        url: call,
+        type: "GET",
+        success: function(data) { 
+          console.log(data);
+        }
+      });
+    }
+
+    function getPartDataB(pn) {
+      var request = new XMLHttpRequest();
+      request.open('GET', 'https://www.automationdirect.com/rest/gridCompare/solr/p2-08ad-1', true);
+
+      request.onload = function () {
+        console.log(this.response);
+        var data = JSON.parse(this.response);
+        console.log(data);
+      }
+      request.send();
+    }
   </script>
 </html>
