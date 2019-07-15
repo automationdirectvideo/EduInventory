@@ -144,7 +144,7 @@
           console.log(result);
           let code = result.codeResult.code;
           let regAllDigits = /^[0-9]+$/;
-          let regNoSpecialChar = /^[a-zA-Z0-9+\-]+$/;
+          let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
           if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
             code = /^([^+])+/.exec(code)[0];
             playBeep();
