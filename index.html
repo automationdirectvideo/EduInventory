@@ -150,6 +150,7 @@
           let regAllDigits = /^[0-9]+$/;
           let regNoSpecialChar = /^[a-zA-Z0-9+\-]+$/;
           if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
+            code = /^([^+])+/.exec(code)[0];
             playBeep();
             var node = document.createElement("P");
             node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
