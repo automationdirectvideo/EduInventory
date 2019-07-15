@@ -74,14 +74,14 @@
               facingMode: "environment" // or "user" for the front camera
             },
             area: {
-              bottom: "30%",
+              bottom: "40%",
               left: "5%",
               right: "5%",
-              top: "30%"
+              top: "40%"
             }
           },
           locator: {
-            patchSize: "medium",
+            patchSize: "large",
             halfSample: true
           },
           numOfWorkers: (navigator.hardwareConcurrency ? navigator.hardwareConcurrency : 4),
@@ -151,6 +151,7 @@
           var node = document.createElement("P");
           node.appendChild(document.createTextNode(result.codeResult.code + " @ " + new Date().toLocaleTimeString()));
           document.getElementById("log").prepend(node);
+          $('#livestream_scanner').modal("hide");
           Quagga.stop();
         }
       });
