@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FF0000">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>ADC Educational Inventory</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/f38baca865.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/quagga.min.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+    <div id="interactive" class="viewport">
+      <button class="btn btn-danger btn-lg" id="exit-camera-button">Exit</button>
+    </div>
+    <div class="main">
+      <div class="container mt-3">
+        <div class="text-center">
+          <div class="row">
+            <div class="col-2">
+              <a class="btn btn-light" href="index.html"><i class="fa fa-chevron-left"></i>Back</a>
+            </div>
+            <div class="col-8">
+              <h2 class="page-title">Move Items</h2>
+            </div>
+          </div>
+          <br>
+          <div class="select-items-container">
+            <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan Items</button>
+            <h5>----- OR -----</h5>
+            <h5>Type in part numbers:</h5>
+            <input type="text" name="part-number" id="part-number-input">
+            <h5>----- OR -----</h5>
+            <h5>Type in a location code:</h5>
+            <input type="text" name="old-location-code" id="old-location-input">
+          </div>
+          <hr>
+          <h4 class="d-inline">New Location:</h4>
+          <input class="mb-2 d-inline" type="text" name="new-location-code" id="new-location-input">
+          <h5>Type in the box or <button class="btn btn-primary scan-button"><i class="fa fa-camera"></i>Scan</button> to change the new location.</h5>
+          <br>
+          <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
