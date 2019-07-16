@@ -39,6 +39,33 @@ hr {
   color: #008000;
 }
 
+/*----- Map ----*/
+
+.map {
+  background-color: aliceblue;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 56.25%;
+  position: relative;
+  width: 80%;
+}
+
+#map-placeholder {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+}
+
+.bay-title {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.shelf-title, .bin-title {
+  text-align: left;
+}
+
 /*----- Scanning -----*/
 #interactive.viewport {
   position: fixed;
