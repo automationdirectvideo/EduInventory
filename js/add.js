@@ -17,11 +17,11 @@ function displayPartInfo(partNumber) {
   var numStock = 10;
   var description = "Default ADC part description."
   var price = 5;
+  var priceString = "$" + price.toFixed(2);
   if (partData) {
     description = partData[partNumber]["description"];
-    price = parseFloat(partData[partNumber]["price"]);
+    priceString = partData[partNumber]["price"];
   }
-  var priceString = "$" + price.toFixed(2);
   document.getElementById("part-num-stock").innerText = numStock;
   document.getElementById("part-info-description").innerText = description;
   document.getElementById("part-price").innerText = priceString;
