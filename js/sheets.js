@@ -18,7 +18,9 @@ function authorizeAPI() {
     scope: SCOPES
   }).then(() => {
     console.log("Google API status");
-  });
+  }).catch(err => {
+    console.error("Google API error", err);
+  });;
 }
 
 function getAllParts() {
