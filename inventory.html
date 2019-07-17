@@ -51,19 +51,8 @@
             <h5>Type a part number in the search box below:</h5>
           </div>
           <hr>
-          <div class="part-information">
-            <h4 class="part-info-number">Part Number <span class="part-info-stock" id="part-num-stock"># In Stock</span></h4>
-            <div class="alert alert-danger text-center" id="obsolete-warning">
-              <strong><i class="fa fa-exclamation-triangle"></i> Warning</strong>: Product is obsolete
-            </div>
-            <h5 id="part-info-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h5>
-            <h5 class="text-center">
-              <span>Price: <span id="part-price">$0.00</span></span>
-              <span class="mx-2">|</span>
-              <span id="part-location">Location: K4</span>
-            </h5>
-            <h1 class="text-center"><i class="fa fa-map-marker-alt"></i> Insert map</h1>
-            <hr>
+          <div class="spinner-border mb-2" role="status" id="inventory-loading">
+            <span class="sr-only">Loading...</span>
           </div>
           <div class="text-left">
             <table class="table table-bordered table-responsive-md text-center" id="inventory-table">

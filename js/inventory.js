@@ -39,6 +39,7 @@ function loadTable() {
     }
     inventoryBody.innerHTML = output;
     $('#inventory-table').DataTable();
+    document.getElementById("inventory-loading").style.display = "none";
   }
 }
 
