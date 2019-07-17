@@ -4,7 +4,6 @@ $(function() {
     minLength: 2,
     select: function(event, ui) {
       var partNumber = ui.item.value;
-      console.log("Item Chosen: ", partNumber);
       displayPartInfo(partNumber);
     }
   });

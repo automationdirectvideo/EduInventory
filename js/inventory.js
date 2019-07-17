@@ -9,7 +9,6 @@ function searchForPart(partNumber) {
     index++;
   }
   if (searchBar) {
-    console.log(searchBar);
     $('#inventory-table').DataTable().search(partNumber).draw();
   }
 }
@@ -49,6 +48,5 @@ function loadPage() {
 
 var searchPart = document.getElementById("search-part-number");
 searchPart.addEventListener("input", function() {
-  console.log(this.value);
   $('#inventory-table').DataTable().column(0).search(this.value).draw();;
 });

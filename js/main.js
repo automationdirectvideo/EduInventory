@@ -67,7 +67,6 @@ Quagga.onProcessed(function(result) {
 // the barcode had actually been found.
 Quagga.onDetected(function(result) {
   if (result.codeResult.code){
-    console.log(result);
     let code = result.codeResult.code;
     let regAllDigits = /^[0-9]+$/;
     let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
@@ -94,7 +93,6 @@ $('#livestream_scanner').on('hide.bs.modal', function(){
 // Call Quagga.decodeSingle() for every file selected in the 
 // file input
 $("#livestream_scanner input:file").on("change", function(e) {
-  console.log(e);
   if (e.target.files && e.target.files.length) {
     Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {
     });
