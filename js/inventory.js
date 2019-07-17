@@ -32,7 +32,7 @@ function loadTable() {
           <td>#</td>
           <td>${description}</td>
           <td>${price}</td>
-          <td">${obsolete}</td>
+          <td>${obsolete}</td>
           <td><a href="map.html"><i class="fa fa-map-marker-alt mr-1"></i>K4</a></td>
         </tr>
       `;
