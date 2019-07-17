@@ -7,10 +7,12 @@
     <meta name="theme-color" content="#FF0000">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>ADC Educational Inventory</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/f38baca865.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/quagga.min.js"></script>
     <script src="js/main.js"></script>
@@ -36,13 +38,15 @@
             <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan an Item</button>
             <h5>----- OR -----</h5>
             <h5>Type in a part number:</h5>
-            <input class="text-input" type="text" name="part-number" id="search-part-number">
+            <div class="ui-widget">
+              <input class="text-input" type="text" name="part-number" id="search-part-number">
+            </div>
             <h5>----- OR -----</h5>
             <h5>Do you have multiple parts to add? Try <a class="btn btn-primary btn-lg" href="add-multiple.html"><i class="fa fa-boxes"></i>Add Multiple Items</a></h5>
           </div>
-          <div class="part-information">
+          <div class="part-information" id="part-info">
             <hr>
-            <h4 class="part-info-number">Part Number <span class="part-info-stock" id="part-num-stock"># In Stock</span></h4>
+            <h4 class="part-info-number"><span id="part-number">Part Number</span> <span class="part-info-stock" ><span id="part-num-stock">#</span> in Stock</span></h4>
             <div class="alert alert-danger text-center" id="obsolete-warning">
               <strong><i class="fa fa-exclamation-triangle"></i> Warning</strong>: Product is obsolete
             </div>
@@ -50,7 +54,9 @@
             <h5>Price: <span id="part-price">$0.00</span></h5>
             <br>
             <div class="text-center">
-              <h4>Add <input type="number" name="num-items" id="num-items-input" min="1" value="1" style="width:60px;" oninput="validateNumInput(this)"> item(s) to stock. This will leave # in stock.</h4>
+              <h4>Add 
+                <input type="number" name="num-items" id="num-items-input" oldValue="1" min="1" value="1" style="width:60px;"> 
+                item(s) to stock. This will leave <span id="part-new-stock">#</span> in stock.</h4>
               <h4>Suggested Part Location: <input type="text" name="new-location" id="new-location-input" style="width:140px;"></h4>
               <h4>Type in the box or <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan a Location Code</button> to change location.</h4>
               <br>
@@ -61,4 +67,5 @@
       </div>
     </div>
   </body>
+  <script src="js/add.js"></script>
 </html>

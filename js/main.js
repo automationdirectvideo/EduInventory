@@ -125,7 +125,12 @@ function playBeep() {
 }
 
 function validateNumInput(elem) {
-  if (!elem.validity.valid) {
-    elem.value = "";
+  if (elem.oldValue == undefined) {
+    elem.oldValue = 1;
+  }
+  if (/^[0-9]*$/.test(elem.value) && elem.validity.valid) {
+    elem.oldValue = elem.value;
+  } else {
+    elem.value = elem.oldValue;
   }
 }
