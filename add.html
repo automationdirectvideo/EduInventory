@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FF0000">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>ADC Educational Inventory</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/f38baca865.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/quagga.min.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+    <div id="interactive" class="viewport">
+      <button class="btn btn-danger btn-lg" id="exit-camera-button">Exit</button>
+    </div>
+    <div class="main">
+      <div class="container mt-3">
+        <div class="text-center">
+          <div class="row">
+            <div class="col-2">
+              <a class="btn btn-light" href="index.html"><i class="fa fa-chevron-left"></i>Back</a>
+            </div>
+            <div class="col-8">
+              <h2 class="page-title">Add to Stock</h2>
+            </div>
+          </div>
+          <br>
+          <div class="select-item-container">
+            <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan an Item</button>
+            <h5>----- OR -----</h5>
+            <h5>Type in a part number:</h5>
+            <input class="text-input" type="text" name="part-number" id="search-part-number">
+            <h5>----- OR -----</h5>
+            <h5>Do you have multiple parts to add? Try <a class="btn btn-primary btn-lg" href="#"><i class="fa fa-boxes"></i>Add Multiple Items</a></h5>
+          </div>
+          <div class="part-information">
+            <hr>
+            <h4 class="part-info-number">Part Number <span class="part-info-stock" id="part-num-stock"># In Stock</span></h4>
+            <h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h5>
+            <h5>Price: <span id="part-price">$0.00</span></h5>
+            <br>
+            <div class="text-center">
+              <h4>Add <input type="number" name="num-items" id="num-items-input" min="1" value="1" style="width:5%;"> item(s) to stock. This will leave # in stock.</h4>
+              <h4>Suggested Part Location: <input type="text" name="new-location" id="new-location-input" style="width:10%;"></h4>
+              <h4>Type in the box or <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan a Location Code</button> to change location.</h4>
+              <br>
+              <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
