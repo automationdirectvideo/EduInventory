@@ -18,7 +18,7 @@ function loadTable() {
   if (partData) {
     let inventoryBody = document.getElementById("inventory-body");
     let output = ``;
-    for (let i = 0; i < partNumbers.length; i++) {
+    for (let i = 0; i < 1500; i++) {
       let partNumber = partNumbers[i];
       let description = partData[partNumber]["description"];
       let price = partData[partNumber]["price"];
@@ -41,3 +41,7 @@ function loadTable() {
     $('#inventory-table').DataTable();
   }
 }
+
+$(function() {
+  loadTable();
+});
