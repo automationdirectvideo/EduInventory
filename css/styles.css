@@ -25,6 +25,18 @@ hr {
   margin-right: 0.5rem;
 }
 
+/*----- Add/Remove Multiple -----*/
+
+.sub-title {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.remove-icon {
+  color: red;
+  cursor: pointer;
+}
+
 /*----- Inventory Page -----*/
 
 .part-information {

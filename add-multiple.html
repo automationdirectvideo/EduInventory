@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FF0000">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>ADC Educational Inventory</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/f38baca865.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/quagga.min.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+    <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+    <div id="interactive" class="viewport">
+      <button class="btn btn-danger btn-lg" id="exit-camera-button">Exit</button>
+    </div>
+    <div class="main">
+      <div class="container mt-3">
+        <div class="text-center">
+          <div class="row">
+            <div class="col-2">
+              <a class="btn btn-light" href="add.html"><i class="fa fa-chevron-left"></i>Back</a>
+            </div>
+            <div class="col-8">
+              <h2 class="page-title">Add Multiple Items</h2>
+            </div>
+          </div>
+          <br>
+          <div class="select-item-container">
+            <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan Items</button>
+            <h5>----- OR -----</h5>
+            <h5>Type in part numbers & quantities to add:</h5>
+          </div>
+          <hr>
+          <h3 class="sub-title">Parts to Add</h3>
+          <table class="table table-bordered table-responsive-md">
+            <thead>
+              <tr>
+                <th scope="col">Remove Row</th>
+                <th scope="col">Part Number</th>
+                <th scope="col">Amount to Add</th>
+                <th scope="col">Current Quantity In Stock</th>
+                <th scope="col">New Quantity In Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="row-#">
+                <th scope="row"><i class="fa fa-minus-circle remove-icon"></i></th>
+                <td><input class="text-input" type="text" name="part-number" id="part-number-row-#"></td>
+                <td><input type="number" name="num-items" id="num-items-row-#" min="1" value="1" style="width:60px;" oninput="validateNumInput(this)"></td>
+                <td id="current-quantity-row-#">#</td>
+                <td id="new-quantity-row-#">#</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center">
+            <button class="btn btn-primary btn-lg"><i class="fa fa-plus"></i>Add a Row</button>
+            <br>
+            <br>
+            <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
