@@ -47,8 +47,8 @@
             <h5>Price: <span id="part-price">$0.00</span></h5>
             <br>
             <div class="text-center">
-              <h4>Pull <input type="number" name="num-items" id="num-items-input" min="1" value="1" style="width:5%;"> item(s) from stock. This will leave # in stock.</h4>
-              <h4>Suggested Part Location: <input type="text" name="new-location" id="new-location-input" style="width:10%;"></h4>
+              <h4>Pull <input type="number" name="num-items" id="num-items-input" min="1" value="1" style="width:60px;" oninput="validateNumInput(this)"> item(s) from stock. This will leave # in stock.</h4>
+              <h4>Suggested Part Location: <input type="text" name="new-location" id="new-location-input" style="width:140px;"></h4>
               <h4>Type in the box or <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan a Location Code</button> to change location.</h4>
               <br>
               <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>

@@ -106,7 +106,9 @@ $("#exit-camera-button").on("click", function(e) {
     liveStreamConfig, 
     function(err) {
       if (err) {
-        $('#livestream_scanner').modal('show');
+        if (err.name == "NotFoundError") {
+          alert("No camera was found. Please type in the code instead.");
+        }
         $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> '+err.name+'</strong>: '+err.message+'</div>');
         Quagga.stop();
         return;
@@ -120,4 +122,10 @@ $("#exit-camera-button").on("click", function(e) {
 function playBeep() {
   var sound = document.getElementById("beep-audio");
   sound.play();
+}
+
+function validateNumInput(elem) {
+  if (!elem.validity.valid) {
+    elem.value = "";
+  }
 }
