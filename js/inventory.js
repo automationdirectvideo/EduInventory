@@ -33,9 +33,7 @@ function loadTable() {
         </tr>
       `;
     }
-    var tbody = document.createElement("TBODY");
-    tbody.innerHTML = output;
-    inventoryBody.innerHTML = tbody;
+    inventoryBody.innerHTML = output;
     $('#inventory-table').DataTable();
   }
 }
