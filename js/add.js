@@ -1,13 +1,6 @@
 $(function() {
   $("#search-part-number").autocomplete({
-    source: [
-      "EA3-S3ML-RN",
-      "EA3-S3ML-N",
-      "EA3-S3ML",
-      "EA9-T3CL",
-      "P2-08AD-1",
-      "P2-16AD-1"
-    ],
+    source: partNumbers,
     minLength: 2,
     select: function(event, ui) {
       var partNumber = ui.item.value;
@@ -24,6 +17,10 @@ function displayPartInfo(partNumber) {
   var numStock = 10;
   var description = "Default ADC part description."
   var price = 5;
+  if (partData) {
+    description = partData[partNumber]["description"];
+    price = parseFloat(partData[partNumber]["price"]);
+  }
   var priceString = "$" + price.toFixed(2);
   document.getElementById("part-num-stock").innerText = numStock;
   document.getElementById("part-info-description").innerText = description;

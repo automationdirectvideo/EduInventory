@@ -17,10 +17,8 @@ function authorizeAPI() {
     clientId: CLIENT_ID,
     scope: SCOPES
   }).then(() => {
-    console.log("Google API status");
-  }).catch(err => {
-    console.error("Google API error", err);
-  });;
+    getAllParts();
+  });
 }
 
 function getAllParts() {
@@ -42,14 +40,11 @@ function getAllParts() {
         let description = row[columns["Description"]];
         let price = row[columns["Price"]];
         partNumbers.push(partNumber);
-        partData.push({
-          "partNumber": partNumber,
+        partData[partNumber] = {
           "description": description,
           "price": price
-        });
+        };
       }
-      localStorage.setItem("partNumbers", JSON.stringify(partNumbers));
-      localStorage.setItem("partData", JSON.stringify(partData));
     })
     .catch(err => {
       console.error("Error getting parts data", err);

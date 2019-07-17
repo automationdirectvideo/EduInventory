@@ -1,3 +1,7 @@
+// Global variables
+var partNumbers = [];
+var partData = {};
+
 // Create the QuaggaJS config object for the live stream
 var liveStreamConfig = {
   inputStream: {
