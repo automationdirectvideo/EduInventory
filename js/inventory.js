@@ -1,7 +1,3 @@
-$(function() {
-  $('#inventory-table').DataTable();
-});
-
 function searchForPart(partNumber) {
   var inputs = document.getElementsByTagName("input");
   var index = 0;
@@ -40,5 +36,6 @@ function loadTable() {
       inventoryBody.appendChild(row);
     }
     document.getElementById("row-#").remove();
+    $('#inventory-table').DataTable();
   }
 }
