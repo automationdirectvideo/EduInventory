@@ -46,3 +46,9 @@ function loadTable() {
 function loadPage() {
   getAllParts(loadTable);
 }
+
+var searchPart = document.getElementById("search-part-number");
+searchPart.addEventListener("input", function() {
+  console.log(this.value);
+  $('#inventory-table').DataTable().column(0).search(this.value).draw();;
+});

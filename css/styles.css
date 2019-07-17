@@ -86,6 +86,10 @@ hr {
   color: #008000;
 }
 
+.dataTables_filter {
+  display: none; 
+}
+
 /*----- Map ----*/
 
 .map {
