@@ -22,14 +22,18 @@ function loadTable() {
       let partNumber = partNumbers[i];
       let description = partData[partNumber]["description"];
       let price = partData[partNumber]["price"];
+      let obsolete = "No";
+      if (price == "" || price == "retired") {
+        obsolete = "Yes";
+      }
       output += `
-        <tr id="row-${i}">
-          <th scope="row" id="part-number-row-${i}">${partNumber}</th>
-          <td id="quantity-row-${i}">#</td>
-          <td id="description-row-${i}">${description}</td>
-          <td id="price-row-${i}">${price}</td>
-          <td id="obsolete-row-${i}">No</td>
-          <td id="location-row-${i}"><a href="map.html"><i class="fa fa-map-marker-alt mr-1"></i>K4</a></td>
+        <tr>
+          <th scope="row">${partNumber}</th>
+          <td>#</td>
+          <td>${description}</td>
+          <td>${price}</td>
+          <td">${obsolete}</td>
+          <td><a href="map.html"><i class="fa fa-map-marker-alt mr-1"></i>K4</a></td>
         </tr>
       `;
     }
