@@ -17,7 +17,7 @@ function authorizeAPI() {
     clientId: CLIENT_ID,
     scope: SCOPES
   }).then(() => {
-    getAllParts();
+    loadPage();
   });
 }
 

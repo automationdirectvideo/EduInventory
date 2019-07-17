@@ -42,6 +42,7 @@ function loadTable() {
   }
 }
 
-$(function() {
-  loadTable();
-});
+function loadPage() {
+  getAllParts();
+  loadTable
+}

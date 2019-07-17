@@ -10,6 +10,10 @@ $(function() {
   });
 });
 
+function loadPage() {
+  getAllParts();
+}
+
 function displayPartInfo(partNumber) {
   document.getElementById("part-info").style.display = "initial";
   document.getElementById("part-number").innerText = partNumber;
