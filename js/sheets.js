@@ -21,7 +21,7 @@ function authorizeAPI() {
   });
 }
 
-function getAllParts() {
+function getAllParts(callback) {
   var request = {
     "spreadsheetId": "1WtWvaJ1Hc9qbuDpuY8gC8rxR7Pl6r4jLD6HrZtLf8no",
     "range": "Parts List"
@@ -44,6 +44,9 @@ function getAllParts() {
           "description": description,
           "price": price
         };
+      }
+      if (callback) {
+        callback();
       }
     })
     .catch(err => {

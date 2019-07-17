@@ -43,6 +43,5 @@ function loadTable() {
 }
 
 function loadPage() {
-  getAllParts();
-  loadTable();
+  getAllParts(loadTable);
 }
