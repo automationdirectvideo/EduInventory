@@ -78,6 +78,7 @@ Quagga.onDetected(function(result) {
       document.getElementById("log").prepend(node);
       $('#livestream_scanner').modal("hide");
       document.getElementById("interactive").style.display = "none";
+      document.getElementsByTagName("BODY")[0].classList.remove("scan-open");
       Quagga.stop();
     }
   }
@@ -117,6 +118,7 @@ $("#exit-camera-button").on("click", function(e) {
       }
       Quagga.start();
       document.getElementById("interactive").style.display = "block";
+      document.getElementsByTagName("BODY")[0].classList.add("scan-open");
     }
   );
 };

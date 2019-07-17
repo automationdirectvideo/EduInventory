@@ -118,6 +118,12 @@ hr {
 }
 
 /*----- Scanning -----*/
+
+body.scan-open {
+  overflow: hidden;
+  position: fixed;
+}
+
 #interactive.viewport {
   position: fixed;
   width: 100%;
