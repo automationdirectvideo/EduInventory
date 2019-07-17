@@ -16,10 +16,6 @@ hr {
   border-top-width: 3px;
 }
 
-.dataTables_filter {
-  display: none; 
-}
-
 #confirm-button {
   margin-bottom: 2rem;
 }

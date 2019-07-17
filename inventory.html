@@ -7,11 +7,13 @@
     <meta name="theme-color" content="#FF0000">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>ADC Educational Inventory</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.css" rel="stylesheet"/>
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/f38baca865.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/quagga.min.js"></script>
@@ -41,8 +43,7 @@
           <div class="select-item-container">
             <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan</button>
             <h5>----- OR -----</h5>
-            <h5>Type in a part number:</h5>
-            <input class="text-input" type="text" name="part-number" id="search-part-number">
+            <h5>Type a part number in the search box below:</h5>
           </div>
           <hr>
           <div class="part-information">
@@ -68,6 +69,7 @@
                   <th scope="col">Description</th>
                   <th scope="col">Price</th>
                   <th scope="col">Obsolete?</th>
+                  <th scope="col">Location</th>
                 </tr>
               </thead>
               <tbody>
@@ -77,6 +79,7 @@
                   <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
                   <td>$0.00</td>
                   <td>No</td>
+                  <td><a href="map.html"><i class="fa fa-map-marker-alt mr-1"></i>K4</a></td>
                 </tr>
               </tbody>
             </table>
@@ -85,9 +88,5 @@
       </div>
     </div>
   </body>
-  <script>
-    $(document).ready(function() {
-        $('#inventory-table').DataTable();
-    });
-  </script>
+  <script src="js/inventory.js"></script>
 </html>
