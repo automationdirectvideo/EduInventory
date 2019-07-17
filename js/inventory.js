@@ -44,5 +44,5 @@ function loadTable() {
 
 function loadPage() {
   getAllParts();
-  loadTable
+  loadTable();
 }
