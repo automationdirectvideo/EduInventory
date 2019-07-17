@@ -31,8 +31,6 @@ function getAllParts() {
   gapi.client.sheets.spreadsheets.values.get(request)
     .then(response => {
       var values = response.result.values;
-      let partNumbers = [];
-      let partData = [];
       let columns = {};
       let columnHeaders = values[0];
       for (let i = 0; i < columnHeaders.length; i++) {
@@ -50,8 +48,8 @@ function getAllParts() {
           "price": price
         });
       }
-      localStorage.setItem("partData", JSON.stringify(partData));
       localStorage.setItem("partNumbers", JSON.stringify(partNumbers));
+      localStorage.setItem("partData", JSON.stringify(partData));
     })
     .catch(err => {
       console.error("Error getting parts data", err);
