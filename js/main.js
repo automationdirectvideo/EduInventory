@@ -44,21 +44,43 @@ function drawBox(result) {
   });
 }
 
+function verifyCode(code) {
+  if (code == null) {
+    return false;
+  } 
+  let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
+  let regLocationCode = /^[a-zA-Z]+[0-9]+$/;
+  if (regNoSpecialChar.test(code)) {
+    code = /^([^+])+/.exec(code)[0];
+    if (partNumbers.includes(code) || regLocationCode.test(code)) {
+      return code;
+    }
+  } else {
+    return false;
+  }
+}
+
 Quagga.onProcessed(function(result) {
   var drawingCtx = Quagga.canvas.ctx.overlay;
+  var code = null;
+  if (result.codeResult) {
+    code = result.codeResult.code;
+  }
   if (result && new Date() - lastSuccessfulScan >= 1000) {
-    if (result.boxes) {
-      drawBox(result);
-      if (!scanResultWithBoxes) {
-        scanResultWithBoxes = result;
+    if (verifyCode(code)) {
+      if (result.boxes) {
+        drawBox(result);
+        if (!scanResultWithBoxes) {
+          scanResultWithBoxes = result;
+        }
       }
-    }
-
-    if (result.codeResult && result.codeResult.code) {
-      Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-      setTimeout(function() {
-        drawBox(scanResultWithBoxes);
-      }, 500);
+  
+      if (result.codeResult && result.codeResult.code) {
+        Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
+        setTimeout(function() {
+          drawBox(scanResultWithBoxes);
+        }, 500);
+      }
     }
   }
 });
@@ -66,19 +88,15 @@ Quagga.onProcessed(function(result) {
 Quagga.onDetected(function(result) {
   if (result.codeResult.code) {
     let code = result.codeResult.code;
-    let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
-    let regLocationCode = /^[a-zA-Z]+[0-9]+$/;
-    if (regNoSpecialChar.test(code)) {
-      code = /^([^+])+/.exec(code)[0];
-      if (partNumbers.includes(code) || regLocationCode.test(code)) {
-        if (new Date() - lastSuccessfulScan >= 1000) {
-          playBeep();
-          lastSuccessfulScan = new Date();
-          if (!window.location.pathname.includes("multiple")) {
-            stopQuagga();
-          }
-          displayCodeFromScan(code);
+    code = verifyCode(code);
+    if (code) {
+      if (new Date() - lastSuccessfulScan >= 1000) {
+        playBeep();
+        lastSuccessfulScan = new Date();
+        if (!window.location.pathname.includes("multiple")) {
+          stopQuagga();
         }
+        displayCodeFromScan(code);
       }
     }
   }
