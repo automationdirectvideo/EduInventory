@@ -7,18 +7,25 @@
     <meta name="theme-color" content="#FF0000">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>ADC Educational Inventory</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="css/styles.css" rel="stylesheet"/>
     <script src="https://kit.fontawesome.com/f38baca865.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/quagga.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/sheets.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
   </head>
   <body>
     <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
     <div id="interactive" class="viewport">
-      <button class="btn btn-danger btn-lg" id="exit-camera-button">Exit</button>
+        <button class="btn btn-danger btn-lg" id="exit-camera-button" onclick="stopQuagga()">Stop Scanning</button>
     </div>
     <div class="main">
       <div class="container mt-3">
@@ -36,26 +43,61 @@
           </div>
           <br>
           <div class="select-items-container">
-            <button class="btn btn-primary btn-lg scan-button" id="scan-part"><i class="fa fa-camera"></i>Scan Items/Location</button>
-            <h5>----- OR -----</h5>
-            <h5>Type in part numbers:</h5>
-            <input class="text-input" type="text" name="part-number" id="part-number-input">
+            <button class="btn btn-primary btn-lg scan-button" id="scan-items" onclick="loadScanner(this)"><i class="fa fa-camera"></i>Scan Items/Location</button>
             <h5>----- OR -----</h5>
             <h5>Type in a location code:</h5>
             <input class="text-input" type="text" name="old-location-code" id="old-location-input">
+            <h5>----- OR -----</h5>
+            <h5>Type in part numbers below:</h5>
           </div>
+          <hr>
+          <h3 class="sub-title">Parts to Add</h3>
+          <table class="table table-bordered table-responsive-md">
+            <thead>
+              <tr>
+                <th scope="col">Remove Row</th>
+                <th scope="col">Part Number</th>
+                <th scope="col">Number in Stock</th>
+                <th scope="col">Current Location</th>
+              </tr>
+            </thead>
+            <tbody id="parts-table-body">
+              <tr>
+                <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
+                <td><input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)"></td>
+                <td>10</td>
+                <td>K4</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn btn-primary btn-lg" id="add-row-button"><i class="fa fa-plus"></i>Add a Row</button>
           <div id="new-location-container">
             <hr>
             <h4 class="d-inline">New Location:</h4>
             <input class="mb-3 d-inline" style="width:140px;" type="text" name="new-location-code" id="new-location-input">
             <h4>Type in the box or 
-              <button class="btn btn-primary btn-lg scan-button" id="scan-location"><i class="fa fa-camera"></i>Scan a Location Code</button>
+              <button class="btn btn-primary btn-lg scan-button" id="scan-location" onclick="loadScanner(this)"><i class="fa fa-camera"></i>Scan a Location Code</button>
               to change the new location.</h4>
             <br>
-            <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>
+            <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="no-camera-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="alert alert-danger text-center">
+              <i class="fa fa-exclamation-triangle"></i> No camera was found. Please type in the code instead.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="js/move-items.js"></script>
 </html>
