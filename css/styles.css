@@ -40,6 +40,10 @@ hr {
   color: red;
 }
 
+.back-btn {
+  border: 1px solid black;
+}
+
 /*----- Tooltip -----*/
 
 .fa.tooltip-icon {
