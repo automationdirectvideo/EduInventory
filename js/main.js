@@ -27,7 +27,10 @@ var liveStreamConfig = {
     readers: [
       'code_128_reader',
       'code_39_reader'
-    ]
+    ],
+    debug: {
+      drawBoundingBox: true
+    }
   },
   locate: false
 };
