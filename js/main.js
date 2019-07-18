@@ -37,15 +37,19 @@ Quagga.onProcessed(function(result) {
 
   if (result) {
     if (result.boxes) {
+      // drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+      // result.boxes.filter(function (box) {
+      //   return box !== result.box;
+      // }).forEach(function (box) {
+      //   Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 5});
+      // });
+
       drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-      result.boxes.filter(function (box) {
-        return box !== result.box;
-      }).forEach(function (box) {
-        Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 5});
-      });
+      Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 5});
     }
 
-    if (result.codeResult && result.codeResult.code) {
+    if (result.codeResult && result.codeResult.code && 
+          new Date() - lastSuccessfulScan >= 1000) {
       Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
     }
   }
