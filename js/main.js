@@ -38,7 +38,7 @@ Quagga.onProcessed(function(result) {
   var colors = ["green", "blue", "red", "yellow", "pink", "orange", "purple"];
   if (result) {
     if (result.boxes) {
-      // drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+      drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
       result.boxes.filter(function (box) {
         return box !== result.box;
       }).forEach(function (box) {
