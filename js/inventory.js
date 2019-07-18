@@ -1,16 +1,11 @@
 function searchForPart(partNumber) {
-  var inputs = document.getElementsByTagName("input");
-  var index = 0;
-  var searchBar;
-  while (index < inputs.length && !searchBar) {
-    if (inputs[index].type == "search") {
-      searchBar = inputs[index];
-    }
-    index++;
-  }
-  if (searchBar) {
-    $('#inventory-table').DataTable().search(partNumber).draw();
-  }
+  $('#inventory-table').DataTable().column(0).search(partNumber).draw();
+}
+
+function displayCodeFromScan(code) {
+  let partSearch = document.getElementById("search-part-number");
+  partSearch.value = code;
+  searchForPart(code);
 }
 
 function loadTable() {
@@ -48,5 +43,5 @@ function loadPage() {
 
 var searchPart = document.getElementById("search-part-number");
 searchPart.addEventListener("input", function() {
-  $('#inventory-table').DataTable().column(0).search(this.value).draw();;
+  searchForPart(this.value);
 });
