@@ -67,14 +67,11 @@ Quagga.onProcessed(function(result) {
     code = result.codeResult.code;
   }
   if (result && new Date() - lastSuccessfulScan >= 1000) {
+    if (result.boxes && !scanResultWithBoxes) {
+      scanResultWithBoxes = result;
+      drawBox(result);
+    }
     if (verifyCode(code)) {
-      if (result.boxes) {
-        drawBox(result);
-        if (!scanResultWithBoxes) {
-          scanResultWithBoxes = result;
-        }
-      }
-  
       if (result.codeResult && result.codeResult.code) {
         Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
         setTimeout(function() {
