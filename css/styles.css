@@ -36,6 +36,10 @@ hr {
   overflow-x: hidden;
 }
 
+.danger-icon {
+  color: red;
+}
+
 /*----- Tooltip -----*/
 
 .fa.tooltip-icon {

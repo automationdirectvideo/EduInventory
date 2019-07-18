@@ -16,9 +16,10 @@ function loadTable() {
       let partNumber = partNumbers[i];
       let description = partData[partNumber]["description"];
       let price = partData[partNumber]["price"];
-      let obsolete = "No";
+      let obsoleteHTML = `No`;
       if (price == "" || price == "retired") {
-        obsolete = "Yes";
+        price = "---";
+        obsoleteHTML = `<i class="fa fa-exclamation-triangle tooltip-icon"></i> Yes`;
       }
       output += `
         <tr>
@@ -26,7 +27,7 @@ function loadTable() {
           <td>#</td>
           <td>${description}</td>
           <td>${price}</td>
-          <td>${obsolete}</td>
+          <td>${obsoleteHTML}</td>
           <td><a href="map.html"><i class="fa fa-map-marker-alt mr-1"></i>K4</a></td>
         </tr>
       `;
