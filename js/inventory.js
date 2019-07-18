@@ -19,7 +19,7 @@ function loadTable() {
       let obsoleteHTML = `No`;
       if (price == "" || price == "retired") {
         price = "---";
-        obsoleteHTML = `<i class="fa fa-exclamation-triangle tooltip-icon"></i> Yes`;
+        obsoleteHTML = `<i class="fa fa-exclamation-triangle danger-icon"></i> Yes`;
       }
       output += `
         <tr>
