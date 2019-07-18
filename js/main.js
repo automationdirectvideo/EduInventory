@@ -61,17 +61,20 @@ Quagga.onProcessed(function(result) {
 Quagga.onDetected(function(result) {
   if (result.codeResult.code) {
     let code = result.codeResult.code;
-    let regAllDigits = /^[0-9]+$/;
     let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
-    if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
+    let regLocationCode = /^[a-zA-Z]+[0-9]+$/;
+    if (regNoSpecialChar.test(code)) {
       code = /^([^+])+/.exec(code)[0];
-      if (new Date() - lastSuccessfulScan >= 1000) {
-        playBeep();
-        lastSuccessfulScan = new Date();
-        if (!window.location.pathname.includes("multiple")) {
-          stopQuagga();
+      if (partNumbers.includes(code) || regLocationCode.test(code)) {
+        if (new Date() - lastSuccessfulScan >= 1000) {
+          playBeep();
+          lastSuccessfulScan = new Date();
+          if (!window.location.pathname.includes("multiple")) {
+            stopQuagga();
+          }
+  
+          displayCodeFromScan(code);
         }
-        displayCodeFromScan(code);
       }
     }
   }
