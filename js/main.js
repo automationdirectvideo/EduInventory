@@ -1,6 +1,7 @@
 // Global variables
 var partNumbers = [];
 var partData = {};
+var lastSuccessfulScan = new Date();
 
 // Create the QuaggaJS config object for the live stream
 var liveStreamConfig = {
@@ -57,11 +58,14 @@ Quagga.onDetected(function(result) {
     let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
     if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
       code = /^([^+])+/.exec(code)[0];
-      playBeep();
-      if (!window.location.pathname.includes("multiple")) {
-        stopQuagga();
+      if (new Date() - lastSuccessfulScan >= 1000) {
+        playBeep();
+        lastSuccessfulScan = new Date();
+        if (!window.location.pathname.includes("multiple")) {
+          stopQuagga();
+        }
+        displayCodeFromScan(code);
       }
-      displayCodeFromScan(code);
     }
   }
 });
