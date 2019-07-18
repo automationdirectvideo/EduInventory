@@ -50,6 +50,7 @@ function createRow() {
     </td>
     <td>10</td>
     <td>#</td>
+    <td>K4</td>
   `;
   var row = document.createElement("TR");
   row.innerHTML = rowText;
@@ -87,6 +88,7 @@ function updateRowPartNumber(elem) {
   let currentQuantityText = row.cells[3];
   currentQuantityText.innerText = numStock;
   let numItemsInput = row.cells[2].children[0];
+  let location = row.cells[5].innerText;
   updateRowQuantities(numItemsInput);
 }
 
