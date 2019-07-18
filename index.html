@@ -12,8 +12,6 @@
     <script src="https://kit.fontawesome.com/f38baca865.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="js/quagga.min.js"></script>
-    <script src="js/main.js"></script>
   </head>
   <body>
     <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
@@ -23,7 +21,7 @@
     <div class="main">
       <div class="container mt-3">
         <div class="text-center">
-          <h3>ADC Educational Supplies Inventory Management System</h3>
+          <h2>ADC Educational Supplies Inventory Management System</h2>
           <div class="text-center">
             <a class="btn btn-success btn-lg menu-button" href="add.html"><i class="fa fa-plus-circle menu-icon"></i>Add To Stock</a>
             <a class="btn btn-danger btn-lg menu-button" href="pull.html"><i class="fa fa-minus-circle menu-icon"></i>Pull From Stock</a>
@@ -33,35 +31,8 @@
             <a class="btn btn-secondary btn-lg menu-button" href="move-items.html"><i class="fa fa-dolly-flatbed menu-icon"></i>Move Items</a>
             <a class="btn btn-warning btn-lg menu-button" href="map.html"><i class="fa fa-map-marker-alt menu-icon"></i>View Map</a>
           </div>
-          <br>
-          <button class="btn btn-primary btn-lg" onclick="loadLiveQuagga()"><i class="fa fa-camera mr-2"></i>Scan with Camera</button>
-        </div>
-        <hr>
-        <h4 style="text-decoration:underline;">Scanning Log</h4>
-        <div id="log">
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="no-camera-modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="alert alert-danger text-center">
-              <i class="fa fa-exclamation-triangle"></i> No camera was found. Please type in the code instead.
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
         </div>
       </div>
     </div>
   </body>
-  <script>
-    function displayCodeFromScan(code) {
-      var node = document.createElement("P");
-      node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
-      document.getElementById("log").prepend(node);
-    }
-  </script>
 </html>
