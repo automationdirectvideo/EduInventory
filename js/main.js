@@ -91,7 +91,10 @@ Quagga.onDetected(function(result) {
         playBeep();
         lastSuccessfulScan = new Date();
         if (!window.location.pathname.includes("multiple")) {
-          stopQuagga();
+          if (!window.location.pathname.includes("move-items") ||
+              /^[a-zA-Z]+[0-9]+$/.test(code)) {
+            stopQuagga();
+          }
         }
         displayCodeFromScan(code);
       }
@@ -125,6 +128,7 @@ function stopQuagga() {
   document.getElementById("interactive").style.display = "none";
   document.getElementsByTagName("BODY")[0].classList.remove("scan-open");
   Quagga.stop();
+  scanResultWithBoxes = null;
 }
 
 function playBeep() {
