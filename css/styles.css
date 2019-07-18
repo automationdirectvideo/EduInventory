@@ -36,7 +36,56 @@ hr {
   overflow-x: hidden;
 }
 
+/*----- Tooltip -----*/
+
+.fa.tooltip-icon {
+  color: red;
+  display: none;
+  position: relative;
+}
+
+.tooltip-icon .tooltip-text {
+  background-color: #f8d7da;
+  border-radius: 6px;
+  color: #721c24;
+  font-family: monospace;
+  padding: 5px 0;
+  text-align: center;
+  top: 135%;
+  visibility: hidden;
+  width: 120px;
+
+  /* Position the tooltip text */
+  left: 50%;
+  margin-left: -60px;
+  position: absolute;
+  z-index: 1;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip-icon .tooltip-text::after {
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #f8d7da transparent;
+  bottom: 100%;
+  content: "";
+  left: 50%;
+  margin-left: -5px;
+  position: absolute;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip-icon:hover .tooltip-text {
+  opacity: 1;
+  visibility: visible;
+}
+
 /*----- Home Page -----*/
+
 .menu-button {
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
