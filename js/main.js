@@ -30,18 +30,6 @@ var liveStreamConfig = {
   },
   locate: false
 };
-// The fallback to the file API requires a different inputStream option. 
-// The rest is the same 
-var fileConfig = $.extend(
-  {}, 
-  liveStreamConfig,
-  {
-    inputStream: {
-      size: 800,
-      target: "#upload-viewport"
-    }
-  }
-);
 
 Quagga.onProcessed(function(result) {
   var drawingCtx = Quagga.canvas.ctx.overlay, drawingCanvas = Quagga.canvas.dom.overlay;
@@ -66,20 +54,17 @@ Quagga.onProcessed(function(result) {
 // close the modal after a second to let the user notice where 
 // the barcode had actually been found.
 Quagga.onDetected(function(result) {
-  if (result.codeResult.code){
+  if (result.codeResult.code) {
     let code = result.codeResult.code;
     let regAllDigits = /^[0-9]+$/;
     let regNoSpecialChar = /^[a-zA-Z0-9+\-.]+$/;
     if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
       code = /^([^+])+/.exec(code)[0];
       playBeep();
-      var node = document.createElement("P");
-      node.appendChild(document.createTextNode(code + " @ " + new Date().toLocaleTimeString()));
-      document.getElementById("log").prepend(node);
-      $('#livestream_scanner').modal("hide");
       document.getElementById("interactive").style.display = "none";
       document.getElementsByTagName("BODY")[0].classList.remove("scan-open");
       Quagga.stop();
+      displayCodeFromScan(code);
     }
   }
 });
@@ -87,38 +72,29 @@ Quagga.onDetected(function(result) {
 // Stop quagga in any case, when the modal is closed
 $('#livestream_scanner').on('hide.bs.modal', function(){
   if (Quagga){
-    Quagga.stop();	
+    Quagga.stop();
   }
 });
 
-// Call Quagga.decodeSingle() for every file selected in the 
-// file input
-$("#livestream_scanner input:file").on("change", function(e) {
-  if (e.target.files && e.target.files.length) {
-    Quagga.decodeSingle($.extend({}, fileConfig, {src: URL.createObjectURL(e.target.files[0])}), function(result) {
-    });
-  }
-});
 $("#exit-camera-button").on("click", function(e) {
-  $('#livestream_scanner').modal("hide");
   document.getElementById("interactive").style.display = "none";
   Quagga.stop();
-  });
-  function loadLiveQuagga() {
+});
+
+function loadLiveQuagga() {
   Quagga.init(
     liveStreamConfig, 
     function(err) {
       if (err) {
         if (err.name == "NotFoundError") {
-          alert("No camera was found. Please type in the code instead.");
+          $("#no-camera-modal").modal("show");
         }
-        $('#livestream_scanner .modal-body .error').html('<div class="alert alert-danger"><strong><i class="fa fa-exclamation-triangle"></i> '+err.name+'</strong>: '+err.message+'</div>');
         Quagga.stop();
-        return;
+      } else {
+        Quagga.start();
+        document.getElementById("interactive").style.display = "block";
+        document.getElementsByTagName("BODY")[0].classList.add("scan-open");
       }
-      Quagga.start();
-      document.getElementById("interactive").style.display = "block";
-      document.getElementsByTagName("BODY")[0].classList.add("scan-open");
     }
   );
 };
