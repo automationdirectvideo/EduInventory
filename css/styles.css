@@ -131,6 +131,7 @@ body.scan-open {
   overflow: hidden;
   text-align: center;
   display: none;
+  z-index: 8;
 }
 #exit-camera-button {
   position: absolute;
