@@ -65,6 +65,21 @@ function removeRow(elem) {
   row.remove();
 }
 
+function saveChanges() {
+  var tbody = document.getElementById("parts-table-body");
+  var changes = {};
+  for (let i = 0; i < tbody.children.length; i++) {
+    let row = tbody.children[i];
+    let partNumber = row.cells[1].children[0].value;
+    let amtChange = parseInt(row.cells[2].children[0].value);
+    if (changes[partNumber]) {
+      amtChange += parseInt(changes[partNumber]);
+    }
+    changes[partNumber] = amtChange;
+  }
+  console.log("Additions: ", changes);
+}
+
 function updateRowPartNumber(elem) {
   let partNumber = elem.value;
   let numStock = 10;
