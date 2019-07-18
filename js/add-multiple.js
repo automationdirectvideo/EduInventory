@@ -61,5 +61,7 @@ addRowButton.addEventListener("click", function() {
   var row = document.createElement("TR");
   row.innerHTML = rowText;
   tbody.appendChild(row);
+  let partNumberInput = row.cells[1].children[0];
+  partNumberInput.focus();
   loadAutocomplete();
 });
