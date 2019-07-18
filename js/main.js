@@ -50,9 +50,6 @@ Quagga.onProcessed(function(result) {
   }
 });
 
-// Once a barcode had been read successfully, stop quagga and 
-// close the modal after a second to let the user notice where 
-// the barcode had actually been found.
 Quagga.onDetected(function(result) {
   if (result.codeResult.code) {
     let code = result.codeResult.code;
@@ -61,24 +58,16 @@ Quagga.onDetected(function(result) {
     if (!regAllDigits.test(code) && regNoSpecialChar.test(code)) {
       code = /^([^+])+/.exec(code)[0];
       playBeep();
-      document.getElementById("interactive").style.display = "none";
-      document.getElementsByTagName("BODY")[0].classList.remove("scan-open");
-      Quagga.stop();
+      if (!window.location.pathname.includes("multiple")) {
+        stopQuagga();
+      }
       displayCodeFromScan(code);
     }
   }
 });
 
-// Stop quagga in any case, when the modal is closed
-$('#livestream_scanner').on('hide.bs.modal', function(){
-  if (Quagga){
-    Quagga.stop();
-  }
-});
-
 $("#exit-camera-button").on("click", function(e) {
-  document.getElementById("interactive").style.display = "none";
-  Quagga.stop();
+  stopQuagga();
 });
 
 function loadLiveQuagga() {
@@ -98,6 +87,12 @@ function loadLiveQuagga() {
     }
   );
 };
+
+function stopQuagga() {
+  document.getElementById("interactive").style.display = "none";
+  document.getElementsByTagName("BODY")[0].classList.remove("scan-open");
+  Quagga.stop();
+}
 
 function playBeep() {
   var sound = document.getElementById("beep-audio");
