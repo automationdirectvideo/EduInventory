@@ -25,12 +25,18 @@ function displayPartInfo(partNumber) {
   document.getElementById("part-number").innerText = partNumber;
   // Fetch data based on part number
   var numStock = 10;
-  var description = "Default ADC part description."
-  var price = 5;
-  var priceString = "$" + price.toFixed(2);
+  var description = "Description unavailable"
+  var priceString = "Unknown";
   if (partData[partNumber]) {
     description = partData[partNumber]["description"];
     priceString = partData[partNumber]["price"];
+    if (priceString == "" || priceString == "retired") {
+      priceString = "Retired";
+      document.getElementById("obsolete-warning").style.display =
+          "inline-block";
+    } else {
+      document.getElementById("obsolete-warning").style.display = "none";
+    }
   }
   var locationCode = "J2";
   document.getElementById("part-num-stock").innerText = numStock;
