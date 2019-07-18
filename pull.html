@@ -43,7 +43,7 @@
           </div>
           <br>
           <div class="select-item-container">
-            <button class="btn btn-primary btn-lg scan-button"><i class="fa fa-camera"></i>Scan an Item</button>
+            <button class="btn btn-primary btn-lg scan-button" onclick="loadLiveQuagga()"><i class="fa fa-camera"></i>Scan an Item</button>
             <h5>----- OR -----</h5>
             <h5>Type in a part number:</h5>
             <div class="ui-widget">
@@ -83,6 +83,20 @@
               <br>
               <button class="btn btn-success btn-lg" id="confirm-button">Confirm Changes</button>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="no-camera-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="alert alert-danger text-center">
+              <i class="fa fa-exclamation-triangle"></i> No camera was found. Please type in the code instead.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
