@@ -106,7 +106,7 @@ function submitForm() {
 }
 
 function updateRowPartNumber(elem) {
-  let partNumber = elem.value;
+  let partNumber = elem.innerText;
   let numStock = 10;
   let row = elem.parentElement.parentElement;
   let obsolete = false;
