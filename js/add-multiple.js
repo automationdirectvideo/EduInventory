@@ -1,24 +1,24 @@
-function loadAutocomplete() {
-  $(".part-input").autocomplete({
+$(function() {
+  $("#search-part-number").autocomplete({
     source: partNumbers,
     minLength: 2,
     select: function(event, ui) {
       updateRowPartNumber(this);
     }
   });
-}
+  document.getElementById("search-part-number").focus();
+});
 
 function loadPage() {
   getAllParts();
-  loadAutocomplete();
 }
 
-function addPartToTable(partNumber) {
-  let partInputs = document.getElementsByClassName("part-input");
+function addPartToTable(partNumber, amountChange) {
+  let partInputs = document.getElementsByClassName("part-number");
   let index = 0;
   let partFound = false;
   while (index < partInputs.length && !partFound) {
-    if (partInputs[index].value == partNumber) {
+    if (partInputs[index].innerText == partNumber) {
       partFound = true;
     } else {
       index++;
@@ -26,17 +26,18 @@ function addPartToTable(partNumber) {
   }
   if (partFound) {
     let partInput = partInputs[index];
-    let row = partInput.parentElement.parentElement;
+    let row = partInput.parentElement;
     let numItemsInput = row.cells[2].children[0];
-    numItemsInput.value = parseInt(numItemsInput.value) + 1;
+    numItemsInput.value = parseInt(numItemsInput.value) + amountChange;
     updateRowQuantities(numItemsInput);
   } else {
     let row = createRow();
-    let partInput = row.cells[1].children[0];
-    partInput.value = partNumber;
+    let partInput = row.cells[1];
+    partInput.innerText = partNumber;
     let tbody = document.getElementById("parts-table-body");
     tbody.prepend(row);
-    loadAutocomplete();
+    let numItemsInput = row.cells[2].children[0];
+    numItemsInput.value = amountChange;
     updateRowPartNumber(partInput);
   }
 }
@@ -44,7 +45,7 @@ function addPartToTable(partNumber) {
 function createRow() {
   var rowText = `
     <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
-    <td><input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)"></td>
+    <td class="part-number">PN</td>
     <td>
       <input class="num-items" type="number" name="num-items" min="1" value="1" style="width:60px;" oninput="updateRowQuantities(this)">
     </td>
@@ -71,7 +72,7 @@ function saveChanges() {
   var changes = {};
   for (let i = 0; i < tbody.children.length; i++) {
     let row = tbody.children[i];
-    let partNumber = row.cells[1].children[0].value;
+    let partNumber = row.cells[1].innerText;
     let amtChange = parseInt(row.cells[2].children[0].value);
     if (changes[partNumber]) {
       amtChange += parseInt(changes[partNumber]);
@@ -81,10 +82,21 @@ function saveChanges() {
   console.log("Additions: ", changes);
 }
 
+function submitForm() {
+  let partNumber = document.getElementById("search-part-number").value;
+  let amountChange = parseInt(document.getElementById("amount-change").value);
+    if (validatePartNumber(partNumber)) {
+      addPartToTable(partNumber, amountChange);
+    }
+    document.getElementById("amount-change").value = "1";
+    document.getElementById("search-part-number").value = "";
+    document.getElementById("search-part-number").focus();
+}
+
 function updateRowPartNumber(elem) {
   let partNumber = elem.value;
   let numStock = 10;
-  let row = elem.parentElement.parentElement;
+  let row = elem.parentElement;
   let currentQuantityText = row.cells[3];
   currentQuantityText.innerText = numStock;
   let numItemsInput = row.cells[2].children[0];
@@ -105,12 +117,20 @@ function updateRowQuantities(elem) {
   newQuantityText.innerText = currentQuantity + change;
 }
 
-var addRowButton = document.getElementById("add-row-button");
-addRowButton.addEventListener("click", function() {
-  var tbody = document.getElementById("parts-table-body");
-  let row = createRow();
-  tbody.appendChild(row);
-  let partNumberInput = row.cells[1].children[0];
-  partNumberInput.focus();
-  loadAutocomplete();
+function validatePartNumber(code) {
+  return partData[code];
+}
+
+var partInput = document.getElementById("search-part-number");
+partInput.addEventListener("keydown", function(e) {
+  if (e && e.which == 13) {
+    submitForm();
+  }
+});
+
+var amountChangeInput = document.getElementById("amount-change");
+amountChangeInput.addEventListener("keydown", function(e) {
+  if (e && e.which == 13) {
+    submitForm();
+  }
 });
