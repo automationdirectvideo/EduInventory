@@ -1,16 +1,13 @@
-function loadAutocomplete() {
-  $(".part-input").autocomplete({
+$(function() {
+  $("#search-part-number").autocomplete({
     source: partNumbers,
-    minLength: 2,
-    select: function(event, ui) {
-      updateRowPartNumber(this);
-    }
+    minLength: 2
   });
-}
+  document.getElementById("search-part-number").focus();
+});
 
 function loadPage() {
   getAllParts();
-  loadAutocomplete();
 }
 
 function loadScanner(elem) {
@@ -19,11 +16,11 @@ function loadScanner(elem) {
 }
 
 function addPartToTable(partNumber) {
-  let partInputs = document.getElementsByClassName("part-input");
+  let partInputs = document.getElementsByClassName("part-number");
   let index = 0;
   let partFound = false;
   while (index < partInputs.length && !partFound) {
-    if (partInputs[index].value == partNumber) {
+    if (partInputs[index].innerText == partNumber) {
       partFound = true;
     } else {
       index++;
@@ -31,11 +28,10 @@ function addPartToTable(partNumber) {
   }
   if (!partFound) {
     let row = createRow();
-    let partInput = row.cells[1].children[0];
-    partInput.value = partNumber;
+    let partInput = row.cells[1];
+    partInput.innerText = partNumber;
     let tbody = document.getElementById("parts-table-body");
     tbody.prepend(row);
-    loadAutocomplete();
     updateRowPartNumber(partInput);
   }
 }
@@ -43,7 +39,7 @@ function addPartToTable(partNumber) {
 function createRow() {
   var rowText = `
     <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
-    <td><input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)"></td>
+    <td class="part-number"></td>
     <td>10</td>
     <td>K4</td>
   `;
@@ -67,6 +63,10 @@ function displayCodeFromScan(code) {
 function removeRow(elem) {
   let row = elem.parentElement.parentElement;
   row.remove();
+  var tbody = document.getElementById("parts-table-body");
+  if (tbody.children.length == 0) {
+    document.getElementById("table-container").style.display = "none";
+  }
 }
 
 function saveChanges() {
@@ -74,7 +74,7 @@ function saveChanges() {
   var changedPartNumbers = [];
   for (let i = 0; i < tbody.children.length; i++) {
     let row = tbody.children[i];
-    let partNumber = row.cells[1].children[0].value;
+    let partNumber = row.cells[1].innerText;
     changedPartNumbers.push(partNumber);
   }
   let newLocation = document.getElementById("new-location-input").value;
@@ -82,25 +82,38 @@ function saveChanges() {
   console.log("New Location: ", newLocation);
 }
 
+function submitForm() {
+  let partNumber = document.getElementById("search-part-number").value;
+  partNumber = /^([^+])+/.exec(partNumber)[0];
+    if (validatePartNumber(partNumber)) {
+      addPartToTable(partNumber);
+      document.getElementById("table-container").style.display = "initial";
+    }
+    document.getElementById("search-part-number").value = "";
+    document.getElementById("search-part-number").focus();
+}
+
 function updateRowPartNumber(elem) {
   let partNumber = elem.value;
   let numStock = 10;
   let currentLocation = "K4";
-  let row = elem.parentElement.parentElement;
+  let row = elem.parentElement;
   let currentQuantityText = row.cells[2];
   currentQuantityText.innerText = numStock;
   let locationText = row.cells[3];
   locationText.innerText = currentLocation;
 }
 
-var addRowButton = document.getElementById("add-row-button");
-addRowButton.addEventListener("click", function() {
-  var tbody = document.getElementById("parts-table-body");
-  let row = createRow();
-  tbody.appendChild(row);
-  let partNumberInput = row.cells[1].children[0];
-  partNumberInput.focus();
-  loadAutocomplete();
+function validatePartNumber(code) {
+  // return partData[code];
+  return true;
+}
+
+var partInput = document.getElementById("search-part-number");
+partInput.addEventListener("keydown", function(e) {
+  if (e && e.which == 13) {
+    submitForm();
+  }
 });
 
 var lastScanButtonPressed;

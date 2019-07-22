@@ -48,38 +48,36 @@
             <h5>Type in a location code:</h5>
             <input class="text-input" type="text" name="old-location-code" id="old-location-input">
             <h5>----- OR -----</h5>
-            <h5>Type in part numbers below:</h5>
+            <h5>Type in part numbers:</h5>
+            <div class="ui-widget">
+              <input class="text-input" type="text" name="part-number" id="search-part-number">
+              <button class="btn btn-secondary" onclick="submitForm()">Submit</button>
+            </div>
           </div>
-          <hr>
-          <h3 class="sub-title">Parts to Move</h3>
-          <table class="table table-bordered table-responsive-md">
-            <thead>
-              <tr>
-                <th scope="col">Remove Row</th>
-                <th scope="col">Part Number</th>
-                <th scope="col">Number in Stock</th>
-                <th scope="col">Current Location</th>
-              </tr>
-            </thead>
-            <tbody id="parts-table-body">
-              <tr>
-                <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
-                <td><input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)"></td>
-                <td>10</td>
-                <td>K4</td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-primary btn-lg" id="add-row-button"><i class="fa fa-plus"></i>Add a Row</button>
-          <div id="new-location-container">
+          <div id="table-container">
             <hr>
-            <h4 class="d-inline">New Location:</h4>
-            <input class="mb-3 d-inline" style="width:140px;" type="text" name="new-location-code" id="new-location-input">
-            <h4>Type in the box or 
-              <button class="btn btn-primary btn-lg scan-button" id="scan-location" onclick="loadScanner(this)"><i class="fa fa-camera"></i>Scan a Location Code</button>
-              to change the new location.</h4>
-            <br>
-            <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
+            <h3 class="sub-title">Parts to Move</h3>
+            <table class="table table-bordered table-responsive-md">
+              <thead>
+                <tr>
+                  <th scope="col">Remove Row</th>
+                  <th scope="col">Part Number</th>
+                  <th scope="col">Number in Stock</th>
+                  <th scope="col">Current Location</th>
+                </tr>
+              </thead>
+              <tbody id="parts-table-body"></tbody>
+            </table>
+            <div id="new-location-container">
+              <br>
+              <h4 class="d-inline">New Location:</h4>
+              <input class="mb-3 d-inline" style="width:140px;" type="text" name="new-location-code" id="new-location-input">
+              <h4>Type in the box or 
+                <button class="btn btn-primary btn-lg scan-button" id="scan-location" onclick="loadScanner(this)"><i class="fa fa-camera"></i>Scan a Location Code</button>
+                to change the new location.</h4>
+              <br>
+              <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
+            </div>
           </div>
         </div>
       </div>
