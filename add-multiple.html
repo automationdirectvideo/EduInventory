@@ -52,24 +52,26 @@
               <button class="btn btn-secondary" onclick="submitForm()">Submit</button>
             </div>
           </div>
-          <hr>
-          <h3 class="sub-title">Parts to Add</h3>
-          <table class="table table-bordered table-responsive-md">
-            <thead>
-              <tr>
-                <th scope="col">Remove Row</th>
-                <th scope="col">Part Number</th>
-                <th scope="col">Amount to Add</th>
-                <th scope="col">Current Quantity In Stock</th>
-                <th scope="col">New Quantity In Stock</th>
-                <th scope="col">Location</th>
-              </tr>
-            </thead>
-            <tbody id="parts-table-body"></tbody>
-          </table>
-          <div class="text-center">
-            <br>
-            <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
+          <div id="table-container">
+            <hr>
+            <h3 class="sub-title">Parts to Add</h3>
+            <table class="table table-bordered table-responsive-md">
+              <thead>
+                <tr>
+                  <th scope="col">Remove Row</th>
+                  <th scope="col">Part Number</th>
+                  <th scope="col">Amount to Add</th>
+                  <th scope="col">Current Quantity In Stock</th>
+                  <th scope="col">New Quantity In Stock</th>
+                  <th scope="col">Location</th>
+                </tr>
+              </thead>
+              <tbody id="parts-table-body"></tbody>
+            </table>
+            <div class="text-center">
+              <br>
+              <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
+            </div>
           </div>
         </div>
       </div>

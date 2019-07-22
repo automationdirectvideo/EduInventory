@@ -76,6 +76,10 @@ function displayCodeFromScan(code) {
 function removeRow(elem) {
   let row = elem.parentElement.parentElement;
   row.remove();
+  var tbody = document.getElementById("parts-table-body");
+  if (tbody.children.length == 0) {
+    document.getElementById("table-container").style.display = "none";
+  }
 }
 
 function saveChanges() {
@@ -97,12 +101,13 @@ function submitForm() {
   let partNumber = document.getElementById("search-part-number").value;
   let amountChange = parseInt(document.getElementById("amount-change").value);
   partNumber = /^([^+])+/.exec(partNumber)[0];
-    if (validatePartNumber(partNumber)) {
-      addPartToTable(partNumber, amountChange);
-    }
-    document.getElementById("amount-change").value = "1";
-    document.getElementById("search-part-number").value = "";
-    document.getElementById("search-part-number").focus();
+  if (validatePartNumber(partNumber)) {
+    addPartToTable(partNumber, amountChange);
+    document.getElementById("table-container").style.display = "initial";
+  }
+  document.getElementById("amount-change").value = "1";
+  document.getElementById("search-part-number").value = "";
+  document.getElementById("search-part-number").focus();
 }
 
 function updateRowPartNumber(elem) {
