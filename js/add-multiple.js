@@ -14,6 +14,9 @@ function loadPage() {
 }
 
 function addPartToTable(partNumber, amountChange) {
+  if (!amountChange) {
+    amountChange = 1;
+  }
   let partInputs = document.getElementsByClassName("part-number");
   let index = 0;
   let partFound = false;
@@ -28,7 +31,11 @@ function addPartToTable(partNumber, amountChange) {
     let partInput = partInputs[index];
     let row = partInput.parentElement;
     let numItemsInput = row.cells[2].children[0];
-    numItemsInput.value = parseInt(numItemsInput.value) + amountChange;
+    let currentValue = parseInt(numItemsInput.value);
+    if (!currentValue) {
+      currentValue = 0;
+    }
+    numItemsInput.value = currentValue + amountChange;
     updateRowQuantities(numItemsInput);
   } else {
     let row = createRow();
@@ -59,7 +66,7 @@ function createRow() {
 }
 
 function displayCodeFromScan(code) {
-  addPartToTable(code);
+  addPartToTable(code, 1);
 }
 
 function removeRow(elem) {

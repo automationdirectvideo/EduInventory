@@ -48,7 +48,7 @@
             <h5>Type in part numbers & quantities to add:</h5>
             <div class="ui-widget">
               <input class="text-input" type="text" name="part-number" id="search-part-number">
-              <input class="text-input" type="number" name="amount-change" id="amount-change" min="1" value="1" style="width:60px;">
+              <input class="text-input" type="number" name="amount-change" id="amount-change" min="1" value="1" style="width:60px;" oninput="validateNumInput(this)">
               <button class="btn btn-secondary" onclick="submitForm()">Submit</button>
             </div>
           </div>
