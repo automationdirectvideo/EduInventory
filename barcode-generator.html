@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#FF0000">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>ADC Educational Inventory</title>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <script src="https://kit.fontawesome.com/f38baca865.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/quagga.min.js"></script>
+    <script src="js/main.js"></script>
+    <style>
+      .shelf-label {
+        text-align: center;
+        border: 3px solid black;
+      }
+      .barcode, .barcode-text {
+        margin-bottom: auto;
+        margin-top: auto;
+      }
+      .barcode-text {
+        display: inline-block;
+        font-size: 100px;
+      }
+      .barcode {
+        display: inline-block;
+        height: 100px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="beep-audio" src="https://www.soundjay.com/button/beep-07.mp3" autostart="false" ></audio>
+    <div id="interactive" class="viewport">
+      <button class="btn btn-danger btn-lg" id="exit-camera-button" onclick="stopQuagga()">Exit</button>
+    </div>
+    <div class="main">
+      <div class="container mt-3">
+        <div class="row justify-content-center">
+          <div class="col-6 shelf-label">
+            <h1 class="barcode-text">
+              &uarr;J4&uarr;
+            </h1>
+            <div class="barcode">
+              <img src='https://mobiledemand-barcode.azurewebsites.net/barcode/image?content=J4&size=300&symbology=CODE_128&format=png&text=false'/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
