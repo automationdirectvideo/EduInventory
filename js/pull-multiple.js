@@ -71,6 +71,7 @@ function createRow() {
 
 function displayCodeFromScan(code) {
   addPartToTable(code, 1);
+  document.getElementById("table-container").style.display = "initial";
 }
 
 function removeRow(elem) {

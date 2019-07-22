@@ -56,6 +56,7 @@ function displayCodeFromScan(code) {
       document.getElementById("old-location-input").value = code;
     } else {
       addPartToTable(code);
+      document.getElementById("table-container").style.display = "initial";
     }
   }
 }
