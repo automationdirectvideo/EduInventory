@@ -4,14 +4,18 @@ $(function() {
     minLength: 2,
     select: function(event, ui) {
       var partNumber = ui.item.value;
-      console.log("Item Chosen: ", partNumber);
       displayPartInfo(partNumber);
     }
   });
+  document.getElementById("search-part-number").focus();
 });
 
 function loadPage() {
   getAllParts();
+}
+
+function clearPartInfo() {
+  document.getElementById("part-info").style.display = "none";
 }
 
 function displayCodeFromScan(code) {
@@ -65,10 +69,28 @@ function displayNewQuantityPull() {
   document.getElementById("part-new-stock").innerText = newTotal;
 }
 
+function validatePartNumber(code) {
+  return partData[code];
+}
+
 var numItemsInput = document.getElementById("num-items-input");
 numItemsInput.addEventListener("input", function() {
   validateNumInput(this);
   displayNewQuantityPull();
+});
+
+var partInput = document.getElementById("search-part-number");
+partInput.addEventListener("change", function() {
+  if (validatePartNumber(this.value)) {
+    displayPartInfo(this.value);
+  } else {
+    clearPartInfo();
+  }
+});
+partInput.addEventListener("keydown", function(e) {
+  if (e && e.which == 13) {
+    this.blur();
+  }
 });
 
 var showMapBtn = document.getElementById("show-map-button");
