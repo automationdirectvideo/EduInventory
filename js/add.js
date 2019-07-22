@@ -78,6 +78,8 @@ partInput.addEventListener("change", function() {
     displayPartInfo(partNumber);
   } else {
     clearPartInfo();
+    this.value = "";
+    this.focus();
   }
 });
 partInput.addEventListener("keydown", function(e) {
