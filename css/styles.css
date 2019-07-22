@@ -165,6 +165,10 @@ hr {
   right: 0;
 }
 
+#invalid-code {
+  display: none;
+}
+
 .bay-title {
   text-align: center;
   text-decoration: underline;
