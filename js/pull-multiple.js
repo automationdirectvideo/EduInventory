@@ -44,7 +44,12 @@ function addPartToTable(partNumber) {
 function createRow() {
   var rowText = `
     <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
-    <td><input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)"></td>
+    <td>
+      <input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)">
+      <i class="fa fa-exclamation-triangle tooltip-icon">
+        <div class="tooltip-text">Product is obsolete</div>
+      </i>
+    </td>
     <td>
       <input class="num-items" type="number" name="num-items" min="1" value="1" style="width:60px;" oninput="updateRowQuantities(this)">
       <i class="fa fa-exclamation-triangle tooltip-icon">
@@ -87,6 +92,13 @@ function updateRowPartNumber(elem) {
   let partNumber = elem.value;
   let numStock = 10;
   let row = elem.parentElement.parentElement;
+  let obsolete = false;
+  let obsoleteWarning = row.cells[1].children[1];
+  if (obsolete) {
+    obsoleteWarning.style.display = "initial";
+  } else {
+    obsoleteWarning.style.display = "none";
+  }
   let currentQuantityText = row.cells[3];
   currentQuantityText.innerText = numStock;
   let numItemsInput = row.cells[2].children[0];
