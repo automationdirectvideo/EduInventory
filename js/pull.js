@@ -81,8 +81,10 @@ numItemsInput.addEventListener("input", function() {
 
 var partInput = document.getElementById("search-part-number");
 partInput.addEventListener("change", function() {
-  if (validatePartNumber(this.value)) {
-    displayPartInfo(this.value);
+  let partNumber = this.value;
+  partNumber = /^([^+])+/.exec(partNumber)[0];
+  if (validatePartNumber(partNumber)) {
+    displayPartInfo(partNumber);
   } else {
     clearPartInfo();
   }

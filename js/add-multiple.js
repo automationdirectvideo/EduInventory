@@ -89,6 +89,7 @@ function saveChanges() {
 function submitForm() {
   let partNumber = document.getElementById("search-part-number").value;
   let amountChange = parseInt(document.getElementById("amount-change").value);
+  partNumber = /^([^+])+/.exec(partNumber)[0];
     if (validatePartNumber(partNumber)) {
       addPartToTable(partNumber, amountChange);
     }

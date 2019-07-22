@@ -96,6 +96,7 @@ function saveChanges() {
 function submitForm() {
   let partNumber = document.getElementById("search-part-number").value;
   let amountChange = parseInt(document.getElementById("amount-change").value);
+  partNumber = /^([^+])+/.exec(partNumber)[0];
     if (validatePartNumber(partNumber)) {
       addPartToTable(partNumber, amountChange);
     }
@@ -143,8 +144,7 @@ function updateRowQuantities(elem) {
 }
 
 function validatePartNumber(code) {
-  // return partData[code];
-  return true;
+  return partData[code];
 }
 
 var partInput = document.getElementById("search-part-number");
