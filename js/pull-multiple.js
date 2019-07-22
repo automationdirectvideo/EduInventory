@@ -110,6 +110,12 @@ function updateRowPartNumber(elem) {
   let numStock = 10;
   let row = elem.parentElement.parentElement;
   let obsolete = false;
+  if (partData[partNumber]) {
+    if (partData[partNumber]["price"] == "retired" ||
+        partData[partNumber]["price"] == "") {
+      obsolete = true;
+    }
+  }
   let obsoleteWarning = row.cells[1].children[1];
   if (obsolete) {
     obsoleteWarning.style.display = "initial";
