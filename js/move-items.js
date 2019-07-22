@@ -105,8 +105,7 @@ function updateRowPartNumber(elem) {
 }
 
 function validatePartNumber(code) {
-  // return partData[code];
-  return true;
+  return partData[code];
 }
 
 var partInput = document.getElementById("search-part-number");
