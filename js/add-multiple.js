@@ -1,10 +1,7 @@
 $(function() {
   $("#search-part-number").autocomplete({
     source: partNumbers,
-    minLength: 2,
-    select: function(event, ui) {
-      updateRowPartNumber(this);
-    }
+    minLength: 2
   });
   document.getElementById("search-part-number").focus();
 });

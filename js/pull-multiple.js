@@ -45,6 +45,7 @@ function createRow() {
   var rowText = `
     <th scope="row"><i class="fa fa-minus-circle remove-icon" onclick="removeRow(this)"></i></th>
     <td>
+      <span>PN</span>
       <input class="text-input part-input" type="text" name="part-number" oninput="updateRowPartNumber(this)">
       <i class="fa fa-exclamation-triangle tooltip-icon">
         <div class="tooltip-text">Product is obsolete</div>

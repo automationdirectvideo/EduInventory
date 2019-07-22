@@ -46,6 +46,11 @@
             <button class="btn btn-primary btn-lg scan-button" onclick="loadLiveQuagga()"><i class="fa fa-camera"></i>Scan Items</button>
             <h5>----- OR -----</h5>
             <h5>Type in part numbers & quantities to pull:</h5>
+            <div class="ui-widget">
+              <input class="text-input" type="text" name="part-number" id="search-part-number">
+              <input class="text-input" type="number" name="amount-change" id="amount-change" min="1" value="1" style="width:60px;" oninput="validateNumInput(this)">
+              <button class="btn btn-secondary" onclick="submitForm()">Submit</button>
+            </div>
           </div>
           <hr>
           <h3 class="sub-title">Parts to Pull</h3>
@@ -80,8 +85,6 @@
             </tbody>
           </table>
           <div class="text-center">
-            <button class="btn btn-primary btn-lg" id="add-row-button"><i class="fa fa-plus"></i>Add a Row</button>
-            <br>
             <br>
             <button class="btn btn-success btn-lg" id="confirm-button" onclick="saveChanges()">Confirm Changes</button>
           </div>
