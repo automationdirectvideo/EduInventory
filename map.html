@@ -84,9 +84,8 @@
       var svgDoc = svgObject.contentDocument;
       let mapShelves = svgDoc.getElementsByClassName("shelf");
       for (let i = 0; i < mapShelves.length; i++) {
-        console.log(mapShelves[i]);
         mapShelves[i].addEventListener("click", function() {
-          console.log("Click");
+          selectShelf(this);
         });
       }
     });
