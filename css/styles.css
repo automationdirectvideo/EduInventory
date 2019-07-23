@@ -154,19 +154,8 @@ hr {
 /*----- Map ----*/
 
 .map {
-  background-color: aliceblue;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 56.25%;
-  position: relative;
-  width: 80%;
-}
-
-#map-placeholder {
-  position: absolute;
-  bottom: 50%;
-  left: 0;
-  right: 0;
 }
 
 #invalid-code {
@@ -180,6 +169,11 @@ hr {
 
 .shelf-title, .bin-title {
   text-align: left;
+}
+
+.shelf path {
+  fill: aqua;
+  fill-opacity: 1;
 }
 
 /*----- Scanning -----*/
