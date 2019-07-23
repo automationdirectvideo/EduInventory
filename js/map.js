@@ -95,13 +95,25 @@ function loadLocationInfo(code) {
 
 function selectShelf(shelfElem) {
   let shelfId = shelfElem.id.replace(/shelf-/, "");
-  let selectedShelves = document.getElementsByClassName("selected-shelf");
+  let svgDoc = document.getElementById("map").contentDocument;
+  let selectedShelves = svgDoc.getElementsByClassName("selected-shelf");
   for (let i = 0; i < selectedShelves.length; i++) {
     selectedShelves[i].classList.remove("selected-shelf");
   }
   shelfElem.classList.add("selected-shelf");
   displayCodeFromScan(shelfId);
 }
+
+let svgObject = document.getElementById("map");
+svgObject.addEventListener("load", function() {
+  let svgDoc = svgObject.contentDocument;
+  let mapShelves = svgDoc.getElementsByClassName("shelf");
+  for (let i = 0; i < mapShelves.length; i++) {
+    mapShelves[i].addEventListener("click", function() {
+      selectShelf(this);
+    });
+  }
+});
 
 let locationInput = document.getElementById("location-input");
 locationInput.addEventListener("change", function() {
