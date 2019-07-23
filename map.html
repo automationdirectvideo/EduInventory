@@ -43,7 +43,7 @@
           </div>
           <br>
           <div class="map">
-            <object type="image/svg+xml" data="img/storage-room-map.svg"></object>
+            <object id="map" type="image/svg+xml" data="storage-room-map.svg"></object>
           </div>
           <hr>
           <h4>Select a location to view the items stored there:</h4>
@@ -78,4 +78,17 @@
     </div>
   </body>
   <script src="js/map.js"></script>
+  <script>
+    let svgObject = document.getElementById("map");
+    svgObject.addEventListener("load", function() {
+      var svgDoc = svgObject.contentDocument;
+      let mapShelves = svgDoc.getElementsByClassName("shelf");
+      for (let i = 0; i < mapShelves.length; i++) {
+        console.log(mapShelves[i]);
+        mapShelves[i].addEventListener("click", function() {
+          console.log("Click");
+        });
+      }
+    });
+  </script>
 </html>

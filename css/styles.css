@@ -171,11 +171,6 @@ hr {
   text-align: left;
 }
 
-.shelf path {
-  fill: aqua;
-  fill-opacity: 1;
-}
-
 /*----- Scanning -----*/
 
 body.scan-open {

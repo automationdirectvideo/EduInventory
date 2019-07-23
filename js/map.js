@@ -93,6 +93,16 @@ function loadLocationInfo(code) {
   return output;
 }
 
+function selectShelf(shelfElem) {
+  let shelfId = shelfElem.id.replace(/shelf-/, "");
+  let selectedShelves = document.getElementsByClassName("selected-shelf");
+  for (let i = 0; i < selectedShelves.length; i++) {
+    selectedShelves[i].classList.remove("selected-shelf");
+  }
+  shelfElem.classList.add("selected-shelf");
+  displayCodeFromScan(shelfId);
+}
+
 let locationInput = document.getElementById("location-input");
 locationInput.addEventListener("change", function() {
   displayCodeFromScan(this.value);
